@@ -1,11 +1,12 @@
 import Layout from "./hoc/layout/Layout";
+import Quiz from './containers/quiz/Quiz';
 
 function App() {
-  return (
-      <Layout>
-        <div>HUI</div>
-      </Layout>
-  );
+    return (
+        <Layout>
+            <Quiz/>
+        </Layout>
+    );
 }
 
 export default App;
