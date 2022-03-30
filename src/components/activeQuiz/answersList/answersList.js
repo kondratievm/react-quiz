@@ -6,8 +6,10 @@ const AnswersList = props => (
         {props.answers.map((answer, index) => {
             return (
                 <AnswerItem
+                    state={props.state ? props.state[answer.id] : null}
                     key={index}
                     answer={answer}
+                    onAnswerClick={props.onAnswerClick}
                 />
             )
         })}
