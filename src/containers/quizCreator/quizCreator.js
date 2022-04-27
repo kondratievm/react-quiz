@@ -5,6 +5,7 @@ import {createControl, validate, validateForm} from "../../form/formFramework";
 import Input from "../../components/ui/input/input";
 import Auxillary from "../../hoc/auxillary/auxillary";
 import Select from "../../components/ui/select/select";
+import axios from 'axios';
 
 function createOptionControl(number) {
     return createControl({
@@ -52,10 +53,10 @@ export default class QuizCreator extends Component {
             id: index,
             rightAnswerId: this.state.rightAnswerId,
             answers: [
-                {text: option1.value, id: option1.value},
-                {text: option2.value, id: option2.value},
-                {text: option3.value, id: option3.value},
-                {text: option4.value, id: option4.value},
+                {text: option1.value, id: option1.id},
+                {text: option2.value, id: option2.id},
+                {text: option3.value, id: option3.id},
+                {text: option4.value, id: option4.id},
             ],
         }
 
@@ -69,9 +70,22 @@ export default class QuizCreator extends Component {
         })
     }
 
-    createQuizHandler = evt => {
+    createQuizHandler = async evt => {
         evt.preventDefault()
-        console.log(this.state.quiz)
+
+        try {
+            await axios.post('https://react-quiz-f5dfc-default-rtdb.firebaseio.com/quizes.json', this.state.quiz)
+
+            this.setState({
+                quiz: [],
+                rightAnswerId: 1,
+                isFormValid: false,
+                formControls: createFormControls(),
+            })
+
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     changeHandler = (value, controlName) => {
